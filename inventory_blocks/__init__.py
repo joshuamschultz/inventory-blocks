@@ -1,3 +1,7 @@
+"""Demand Generator
+
+"""
+
 import numpy as np
 
 def generate_demand(mu, sigma, periods, distribution='normal'):
