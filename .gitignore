@@ -1,0 +1,3 @@
+.vscode
+./inventory_blocks/__pycache__
+./inventory_blocks/__pycache__/*
