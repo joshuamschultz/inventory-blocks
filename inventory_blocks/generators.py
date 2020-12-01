@@ -11,10 +11,11 @@ import numpy as np
 
 class Generator:
 
-    def __init__(self, distribution):
-        """ initialize
+    def __init__(self, distribution='normal'):
+        """ Initializes the Generator instance
 
-        Parameters:
+        Parameters
+        ----------
         distribution: str
             Which distribution you would like used to generate the demand
             (default: normal)
@@ -22,11 +23,12 @@ class Generator:
             note: range changes the functions from mu/sigma to low/high
         
         """
+
         self.distribution = distribution
         print(f'Generator initialized as a {self.distribution} distribution ')
 
     def generate(self, mu, sigma, periods=1):
-        """ generate
+        """ Generates a random array of values matching the parameters fed
 
         Parameters
         ----------
@@ -45,7 +47,7 @@ class Generator:
         Returns
         -------
         array
-            an array of randomly generated demands using the parameters fed
+            an array of randomly generated numbers using the parameters fed
         """
 
         if self.distribution == 'range':
@@ -55,3 +57,35 @@ class Generator:
         elif self.distribution == 'normal':
             return np.random.normal(mu, sigma, periods)
         else: return 'No Distribution Specified'
+
+
+    def mimic(self, X, periods=1):
+        """ Copies parameters from a fed array and mimics them as a simulation
+
+        Parameters
+        ----------
+        X : array
+            An array of data to extract parameters from
+        periods : integer, optional
+            How many random points you would like generated
+            (default: 1)
+
+        Returns
+        -------
+        array
+            an array of randomly generated numbers using the parameters fed
+
+        Notes
+        -----
+        Currently only works for 'range' and 'normal' distributions
+        """
+        if self.distribution == 'range':
+            mu = np.max(X),
+            sigma = np.min(X),
+            return self.generate(mu, sigma, periods)
+        elif self.distribution == 'normal':
+            mu = np.mean(X),
+            sigma = np.std(X),
+            return self.generate(mu, sigma, periods)
+        else: return 'Distribution not calculated'
+
